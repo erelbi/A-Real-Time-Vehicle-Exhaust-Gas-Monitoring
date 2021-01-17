@@ -48,10 +48,8 @@ int lpg, co, smoke;
 MQ2 mq2(Analog_Input);
 void setup(void)
 {
- // start serial port
+
  Serial.begin(9600);
- Serial.println("Dallas Temperature IC Control Library Demo");
- // Start up the library
  sensors.begin();
  mq2.begin();
 }
@@ -62,8 +60,8 @@ void loop(void)
  JsonObject& root = jsonBuffer.createObject();
 
 
- sensors.requestTemperatures(); // Send the command to get temperature readings
- val=analogRead(4);//Read Gas value from analog 0
+ sensors.requestTemperatures(); 
+ val=analogRead(4);
  root["temp"] = sensors.getTempCByIndex(0);
  root["air"] = val,DEC;
  root["co"] = mq2.readCO();

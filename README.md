@@ -4,7 +4,7 @@
 
 
 
-![](gazi_proje.gif)
+![](gazi-proje.gif)
 
 > Çalışma Mantığı
 

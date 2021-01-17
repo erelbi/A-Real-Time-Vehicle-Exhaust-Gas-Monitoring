@@ -1,0 +1,432 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>Ergün Elvan Bilsel | Gazi Üniversitesi</title>
+</head>
+    <link rel='stylesheet' href="https://fonts.googleapis.com/css?family=Play:700,400" type='text/css'>
+    <link rel='stylesheet' href="{% static 'demo.css' %}" type='text/css'>
+    <link rel='stylesheet' href="{% static 'tempure.css' %}" type='text/css'>
+    <script type="text/javascript" src="http://iop.io/js/vendor/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerEvents/pointerevents.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/vendor/polymer/PointerGestures/pointergestures.js"></script>
+    <script type="text/javascript" src="http://iop.io/js/iopctrl.js"></script>
+    <script src="//cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+var gauge = new LinearGauge({
+    renderTo: 'canvas-id',
+    width: 100
+}).draw();
+</script>
+<script>
+
+
+      var valuesens = undefined;
+      var co = 0;
+      var temp= 0;
+       const Sensors = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/notifications/'
+        );
+    Sensors.onmessage = function (evt) {
+            responseData(evt);
+
+        };
+            function responseData(evt){
+                    const sıcaklık = document.getElementById('temp');
+                    const lpg = document.getElementById('lpg');
+                    const air = document.getElementById('air');
+                    const smoke = document.getElementById('smoke');
+                    valuesens = JSON.parse(evt.data);
+                    temp = valuesens.temp;
+                    lpgx = valuesens.lpg;
+                    airx = valuesens.air;
+                    smokex = valuesens.smoke;
+                    co = valuesens.co;
+                    var gauge_temp = new LinearGauge({
+            renderTo: 'temp',
+            width: 120,
+            height: 400,
+            units: "°C",
+            minValue: 0,
+            maxValue: 150,
+            majorTicks: [
+                "0",
+                "100",
+                "150",
+
+            ],
+            minorTicks: 2,
+            strokeTicks: true,
+            highlights: [
+                {
+                    "from": 100,
+                    "to": 150,
+                    "color": "rgba(200, 50, 50, .75)"
+                }
+            ],
+            colorPlate: "#fff",
+            borderShadowWidth: 0,
+            borders: false,
+            needleType: "arrow",
+            needleWidth: 2,
+            animationDuration: 1500,
+            animationRule: "linear",
+            tickSide: "left",
+            numberSide: "left",
+            needleSide: "left",
+            barStrokeWidth: 7,
+            barBeginCircle: false,
+            value: temp,
+        }).draw();
+                       var gauge_air = new LinearGauge({
+            renderTo: 'air',
+            width: 120,
+            height: 400,
+            units: "PPM",
+            minValue: 0,
+            maxValue: 2200,
+            majorTicks: [
+                "0",
+                "100",
+                "150",
+                "200",
+                "250",
+                "300",
+                "350",
+                "400",
+                "450",
+                "500",
+                "550",
+                "600",
+                "650",
+                "700",
+                "800",
+                "900",
+                "1000",
+                "1500",
+                "2000",
+                "2200"
+            ],
+            minorTicks: 2,
+            strokeTicks: true,
+            highlights: [
+              {"from": 0, "to": 400, "color": "rgba(79, 216, 132, 1)"} , {"from": 401, "to": 800, "color": "rgba(198, 216, 79, 1)"} ,{"from": 800, "to":1600 , "color": "rgba(216, 157, 79, 1)"},{"from": 1600, "to": 2200, "color": "rgba(200, 50, 50, .75)"}
+            ],
+            colorPlate: "#fff",
+            borderShadowWidth: 0,
+            borders: false,
+            needleType: "arrow",
+            needleWidth: 2,
+            animationDuration: 1500,
+            animationRule: "linear",
+            tickSide: "left",
+            numberSide: "left",
+            needleSide: "left",
+            barStrokeWidth: 7,
+            barBeginCircle: false,
+            value: airx,
+        }).draw();
+                          var gauge_lpg = new LinearGauge({
+            renderTo: 'lpg',
+            width: 120,
+            height: 400,
+            units: "PPM",
+            minValue: 0,
+            maxValue: 2200,
+            majorTicks: [
+                      "0",
+                "100",
+                "150",
+                "200",
+                "250",
+                "300",
+                "350",
+                "400",
+                "450",
+                "500",
+                "550",
+                "600",
+                "650",
+                "700",
+                "800",
+                "900",
+                "1000",
+                "1500",
+                "2000",
+                "2200",
+            ],
+            minorTicks: 2,
+            strokeTicks: true,
+            highlights: [
+               {"from": 0, "to": 200, "color": "rgba(79, 216, 132, 1)"} , {"from": 200, "to": 600, "color": "rgba(198, 216, 79, 1)"} ,{"from": 600, "to":1600 , "color": "rgba(216, 157, 79, 1)"},{"from": 1600, "to": 2200, "color": "rgba(200, 50, 50, .75)"}],
+            colorPlate: "#fff",
+            borderShadowWidth: 0,
+            borders: false,
+            needleType: "arrow",
+            needleWidth: 2,
+            animationDuration: 1500,
+            animationRule: "linear",
+            tickSide: "left",
+            numberSide: "left",
+            needleSide: "left",
+            barStrokeWidth: 7,
+            barBeginCircle: false,
+            value: lpgx,
+        }).draw();
+                             var gauge_smoke = new LinearGauge({
+            renderTo: 'smoke',
+            width: 120,
+            height: 400,
+            units: "PPM",
+            minValue: 0,
+            maxValue: 800,
+            majorTicks: [
+                     "0",
+                "100",
+                "150",
+                "200",
+                "250",
+                "300",
+                "350",
+                "400",
+                "450",
+                "500",
+                "550",
+                "600",
+                "650",
+                "700",
+                "800",
+
+            ],
+            minorTicks: 2,
+            strokeTicks: true,
+            highlights: [
+               {"from": 350, "to": 800, "color": "rgba(200, 50, 50, .75)"}
+            ],
+            colorPlate: "#fff",
+            borderShadowWidth: 0,
+            borders: false,
+            needleType: "arrow",
+            needleWidth: 2,
+            animationDuration: 1500,
+            animationRule: "linear",
+            tickSide: "left",
+            numberSide: "left",
+            needleSide: "left",
+            barStrokeWidth: 7,
+            barBeginCircle: false,
+            value: smokex,
+        }).draw();
+            {#sıcaklık.setAttribute('data-value', temp);#}
+            {#lpg.setAttribute('data-value',lpgx);#}
+            {#air.setAttribute('data-value', airx);#}
+            {#smoke.setAttribute('data-value',smokex);#}
+
+        }
+
+
+
+
+    window.onload = function () {
+
+var dps = []; // dataPoints
+var chart = new CanvasJS.Chart("chartContainer", {
+	title :{
+		text: "Dynamic Data"
+	},
+	data: [{
+		type: "line",
+		dataPoints: dps
+	}]
+});
+
+var xVal = 0;
+var yVal = 100;
+var updateInterval = 1000;
+var dataLength = 20; // number of dataPoints visible at any point
+
+var updateChart = function (count) {
+
+	count = count || 1;
+
+	for (var j = 0; j < count; j++) {
+	    yVal = parseInt(co)
+		dps.push({
+			x: xVal,
+			y: yVal
+		});
+		xVal++;
+	}
+
+	if (dps.length > dataLength) {
+		dps.shift();
+	}
+
+	chart.render();
+};
+
+updateChart(dataLength);
+setInterval(function(){updateChart(co)}, updateInterval);
+
+}
+
+    </script>
+    <section class="container">
+<div class="hero-image">
+  <div class="hero-text">
+     <img src="{% static 'images/gazi.jpeg' %}"/>
+
+  </div>
+</div>
+  <div class="left-half">
+    <article>
+
+      <h1>CO</h1>
+    	<div id="chartContainer" style="height: 370px; width:100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    </article>
+  </div>
+  <div class="right-half">
+   <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <article>
+
+      <h1>Temp.</h1>
+    <canvas id=temp data-type="linear-gauge"
+    data-width="120"
+    data-height="400"
+    data-units="°C"
+    data-min-value="0"
+    data-max-value="220"
+    data-major-ticks="0,20,40,60,80,100,120,140,160,180,200,220"
+    data-minor-ticks="2"
+    data-stroke-ticks="true"
+    data-highlights='[ {"from": 100, "to": 220, "color": "rgba(200, 50, 50, .75)"} ]'
+    data-color-plate="#fff"
+    data-border-shadow-width="0"
+    data-borders="false"
+    data-needle-type="arrow"
+    data-needle-width="2"
+    data-animation-duration="1500"
+    data-animation-rule="linear"
+    data-tick-side="left"
+    data-number-side="left"
+    data-needle-side="left"
+    data-bar-stroke-width="7"
+    data-bar-begin-circle="false"
+    data-value="0"
+></canvas>
+
+    </article>
+    </div>
+    <div class="col-sm">
+       <article>
+
+      <h1>LPG PPM</h1>
+    <canvas id=lpg data-type="linear-gauge"
+    data-width="120"
+    data-height="400"
+    data-units="PPM"
+    data-min-value="0"
+    data-max-value="500"
+    data-major-ticks="0,200,400,600,800,1000,1200,1400,1600,1800,2000"
+    data-minor-ticks="2"
+    data-stroke-ticks="true"
+{#    data-highlights='[ {"from": 000, "to": 2000, "color": "rgba(200, 50, 50, .75)"} ]'#}
+    data-color-plate="#fff"
+    data-border-shadow-width="0"
+    data-borders="false"
+    data-needle-type="arrow"
+    data-needle-width="2"
+    data-animation-duration="1500"
+    data-animation-rule="linear"
+    data-tick-side="left"
+    data-number-side="left"
+    data-needle-side="left"
+    data-bar-stroke-width="7"
+    data-bar-begin-circle="false"
+    data-value="0"
+></canvas>
+
+    </article>
+    </div>
+    <div class="col-sm">
+   <article>
+
+      <h1>Air Quality</h1>
+    <canvas id=air data-type="linear-gauge"
+    data-width="120"
+    data-height="400"
+    data-units="PPM"
+    data-min-value="0"
+    data-max-value="2200"
+    data-major-ticks="0,400,800,1200,1600,2000,2200"
+    data-minor-ticks="2"
+    data-stroke-ticks="true"
+    data-highlights='[ {"from": 0, "to": 400, "color": "rgba(79, 216, 132, 1)"} , {"from": 401, "to": 800, "color": "rgba(198, 216, 79, 1)"} ,{"from": 800, "to":1600 , "color": "rgba(216, 157, 79, 1)"},{"from": 1600, "to": 2200, "color": "rgba(200, 50, 50, .75)"}]'
+    data-color-plate="#fff"
+    data-border-shadow-width="0"
+    data-borders="false"
+    data-needle-type="arrow"
+    data-needle-width="2"
+    data-animation-duration="1500"
+    data-animation-rule="linear"
+    data-tick-side="left"
+    data-number-side="left"
+    data-needle-side="left"
+    data-bar-stroke-width="7"
+    data-bar-begin-circle="false"
+    data-value="0"
+></canvas>
+
+    </article>
+    </div>
+        <div class="col-sm">
+   <article>
+
+      <h1>SMOKE</h1>
+    <canvas id=smoke data-type="linear-gauge"
+    data-width="120"
+    data-height="400"
+    data-units="PPM"
+    data-min-value="0"
+    data-max-value="800"
+    data-major-ticks="0,100,200,300,400,500,600,800"
+    data-minor-ticks="2"
+    data-stroke-ticks="true"
+    data-highlights='[ {"from": 350, "to": 800, "color": "rgba(200, 50, 50, .75)"} ]'
+    data-color-plate="#fff"
+    data-border-shadow-width="0"
+    data-borders="false"
+    data-needle-type="arrow"
+    data-needle-width="2"
+    data-animation-duration="1500"
+    data-animation-rule="linear"
+    data-tick-side="left"
+    data-number-side="left"
+    data-needle-side="left"
+    data-bar-stroke-width="7"
+    data-bar-begin-circle="false"
+    data-value="0"
+></canvas>
+
+    </article>
+    </div>
+  </div>
+</div>
+
+
+
+        </div>
+</section>
+
+

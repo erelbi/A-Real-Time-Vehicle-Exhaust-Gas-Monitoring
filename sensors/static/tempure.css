@@ -1,0 +1,87 @@
+.gauge {
+  position: relative;
+  width: 7em;
+  height: 5.8em;
+  margin: 0.5em auto;
+  font-size: 5em;
+  direction: ltr;
+}
+.gauge-inner {
+  position: relative;
+  top: -4.85em;
+  opacity: 0;
+  transition: opacity .5s;
+
+  .gauge.load & {
+    opacity: 1;
+  }
+
+  .bar {
+    left: 50%;
+    position: absolute;
+    transform-origin: 0 2.5em;
+    width: .03em;
+    height: .2em;
+    background: rgba(255,255,255,.2);
+    &.peak {
+      height: .35em;
+    }
+  }
+}
+.gauge-outer {
+  position: relative;
+  height: 100%;
+  margin-top: .3em;
+
+  .bar {
+    position: absolute;
+    width: .05em;
+    height: 0.7em;
+    left: 50%;
+    transform-origin: 0 3.43em;
+    background-color: rgba(0,0,0,.2);
+    opacity: 0;
+    transition: opacity .5s;
+
+    .gauge.load & {
+      opacity: 1;
+    }
+  }
+}
+.gauge-digits {
+  position: absolute;
+  height: 81%;
+  width: 70%;
+  top: 1.3em;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,.4);
+  opacity: 0;
+  transition: opacity .5s .5s;
+  .gauge.load & {
+    opacity: 1;
+  }
+  &.scale {
+    transform: translateX(-50%) scale(0.8);
+  }
+
+
+
+
+  .digit {
+    position: absolute;
+    font-size: 0.4em;
+    line-height: 0.2;
+  }
+
+  .current-digit {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    color: rgba(255,255,255,.9);
+    &:after {
+      content: '\00B0';
+    }
+  }
+

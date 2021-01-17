@@ -76,7 +76,7 @@ void loop(void)
 }
 
 ```
-## Kurulum Arduino
+## Kurulum OrangePi Zero(Armbian)
 ```
 import time
 import requests
@@ -147,6 +147,6 @@ Sensors()
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © <a href="http://deney.site" target="_blank">deney.site</a>.
-# gazi_gomulu_proje
-# A-Real-Time-Vehicle-Exhaust-Gas-Monitoring
+- Copyright 2020 © <a href="http://deney.site" target="_blank">Ergün Elvan Bilsel</a>.
+# Gazi Üniversitesi Gömülü Sistemler Projesi
+

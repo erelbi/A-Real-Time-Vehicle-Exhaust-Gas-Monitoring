@@ -18,8 +18,7 @@
 
 ## Kurulum Server
 
-- git clone https://github.com/erelbi/django_websocket_restapi_example.git
-- cd django_websocket_restapi_example
+- git clone https://github.com/erelbi/A-Real-Time-Vehicle-Exhaust-Gas-Monitoring.git
 - python3.6 kullanıyorsanız #source venv/bin/active
 - yeni bir virtualenv oluşturacaksanız #virtualenv 
 - #source venv/bin/active

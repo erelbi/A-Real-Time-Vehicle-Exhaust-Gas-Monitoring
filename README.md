@@ -4,7 +4,7 @@
 
 
 
-![ss](https://user-images.githubusercontent.com/30519822/78463017-c51d3900-76e0-11ea-8a58-d6dc4cd501b3.png)
+![](gazi_proje.gif)
 
 > Çalışma Mantığı
 
